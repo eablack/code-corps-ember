@@ -156,15 +156,13 @@ export default function() {
   ////////
 
   // POST /oauth/token
-  this.post('/oauth/token', (db, request) => {
-    var expected = "grant_type=password&username=josh%40coderly.com&password=password";
+  this.post('/login', (db, request) => {
+    let json = JSON.parse(request.requestBody);
 
-    if(request.requestBody === expected) {
+    if(json.username === "josh@coderly.com" && json.password === "password") {
       return {
-        access_token: "d3e45a8a3bbfbb437219e132a8286e329268d57f2d9d8153fbdee9a88c2e96f7",
-        user_id: 1,
-        token_type: "bearer",
-        expires_in: 7200
+        // token encoded at https://jwt.io/
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJqb3NoQGNvZGVybHkuY29tIiwidXNlcl9pZCI6MSwiZXhwIjo3MjAwfQ.QVDyAznECIWL6DjDs9iPezvMmoPuzDqAl4bQ6CY-fCQ"
       };
     } else {
       return new Mirage.Response(400, {}, {
