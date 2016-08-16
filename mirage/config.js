@@ -152,10 +152,10 @@ export default function() {
 
 
   ////////
-  // OAuth
+  // Login
   ////////
 
-  // POST /oauth/token
+  // POST /login
   this.post('/login', (db, request) => {
     let json = JSON.parse(request.requestBody);
 
