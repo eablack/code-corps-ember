@@ -19,12 +19,12 @@ test('Post editing requires logging in', (assert) => {
 
   // server.create uses factories. server.schema.<obj>.create does not
   let organization = server.schema.organizations.create({ slug: 'test_organization' });
-  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization', ownerType: 'organization' });
+  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization' });
   let projectId = server.create('project').id;
 
   // need to assign polymorphic properties explicitly
   // TODO: see if it's possible to override models so we can do this in server.create
-  sluggedRoute.owner = organization;
+  sluggedRoute.organization = organization;
   sluggedRoute.save();
 
   let project = server.schema.projects.find(projectId);
@@ -60,12 +60,12 @@ test('A post body can be edited on its own', (assert) => {
 
   // server.create uses factories. server.schema.<obj>.create does not
   let organization = server.schema.organizations.create({ slug: 'test_organization' });
-  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization', ownerType: 'organization' });
+  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization' });
   let projectId = server.create('project').id;
 
   // need to assign polymorphic properties explicitly
   // TODO: see if it's possible to override models so we can do this in server.create
-  sluggedRoute.owner = organization;
+  sluggedRoute.organization = organization;
   sluggedRoute.save();
 
   let project = server.schema.projects.find(projectId);
@@ -106,12 +106,12 @@ test('A post title can be edited on its own', (assert) => {
 
   // server.create uses factories. server.schema.<obj>.create does not
   let organization = server.schema.organizations.create({ slug: 'test_organization' });
-  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization', ownerType: 'organization' });
+  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization' });
   let projectId = server.create('project').id;
 
   // need to assign polymorphic properties explicitly
   // TODO: see if it's possible to override models so we can do this in server.create
-  sluggedRoute.owner = organization;
+  sluggedRoute.organization = organization;
   sluggedRoute.save();
 
   let project = server.schema.projects.find(projectId);
@@ -148,10 +148,10 @@ test('Mentions are rendered during editing in preview mode', (assert) => {
   authenticateSession(application, { user_id: user.id });
 
   let organization = server.schema.organizations.create({ slug: 'test_organization' });
-  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization', ownerType: 'organization' });
+  let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization' });
   let projectId = server.create('project').id;
 
-  sluggedRoute.owner = organization;
+  sluggedRoute.organization = organization;
   sluggedRoute.save();
 
   let project = server.schema.projects.find(projectId);
@@ -195,7 +195,7 @@ test('A post can be opened or closed by the author', (assert) => {
   authenticateSession(application, { user_id: user.id });
 
   let sluggedRoute = server.create('slugged-route', { slug: 'test' });
-  let organization = sluggedRoute.createOwner({ slug: 'test' }, 'Organization');
+  let organization = sluggedRoute.createOrganization({ slug: 'test' });
   sluggedRoute.save();
 
   let project = server.create('project', { organization: organization });
@@ -233,7 +233,7 @@ test('A post can be opened or closed by the organization admin', (assert) => {
   authenticateSession(application, { user_id: user.id });
 
   let sluggedRoute = server.create('slugged-route', { slug: 'test' });
-  let organization = sluggedRoute.createOwner({ slug: 'test' }, 'Organization');
+  let organization = sluggedRoute.createOrganization({ slug: 'test' });
   sluggedRoute.save();
 
   let project = server.create('project', { organization: organization });
@@ -272,7 +272,7 @@ test('A post cannot be opened or closed by someone else', (assert) => {
   authenticateSession(application, { user_id: user.id });
 
   let sluggedRoute = server.create('slugged-route', { slug: 'test' });
-  let organization = sluggedRoute.createOwner({ slug: 'test' }, 'Organization');
+  let organization = sluggedRoute.createOrganization({ slug: 'test' });
   sluggedRoute.save();
 
   let project = server.create('project', { organization: organization });

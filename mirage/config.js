@@ -436,7 +436,7 @@ export default function() {
 
     let sluggedRoute = schema.sluggedRoutes.where({ 'slug': sluggedRouteSlug }).models[0];
 
-    return sluggedRoute.owner.projects.filter((p) => { return p.slug === projectSlug; }).models[0];
+    return sluggedRoute.organization.projects.filter((p) => { return p.slug === projectSlug; }).models[0];
   });
 
   /////////

@@ -15,7 +15,7 @@ function createProject(slug) {
   // TODO: see if it's possible to override models so we can do this in server.create<<<<<<< HEAD
   let sluggedRoute = server.schema.sluggedRoutes.create({ slug: 'test_organization' });
   let organization = server.schema.organizations.create({ slug: 'test_organization' });
-  sluggedRoute.owner = organization;
+  sluggedRoute.organization = organization;
   sluggedRoute.save();
 
   project.organization = organization;
