@@ -1,0 +1,17 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "env": {
+    "DATABASE_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "scripts": {
+  }
+}
