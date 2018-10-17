@@ -1,0 +1,15 @@
+{
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "code-corps-ember",
+  "scripts": {
+  }
+}
